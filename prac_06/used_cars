@@ -1,0 +1,53 @@
+"""CP1404/CP5632 Practical - Client code to use the Car class."""
+# Note that the import has a folder (module) in it.
+
+from prac_06.car import Car
+
+STARTING_FUEL = 100
+MENU = "Menu:\nD) Drive\nR) Refuel\nQ) Quit"
+
+
+def main():
+    # Get Car Name
+    name = input("Enter your car name: ")
+    while name == "":
+        print("Name of car cannot be blank")
+        name = input("Enter your car name: ")
+    # Create car with given name, apply the units of Starting Fuel
+    car = Car(STARTING_FUEL, name)
+    print(car)
+    # Open Menu, Offer choices until 'Q' is pressed
+    print(MENU)
+    menu_choice = input("Enter your choice: ").upper()
+    while menu_choice != "Q":
+        if menu_choice == "D":
+            # Enter distance to drive with error checking, return the distance the car drove and whether it has no fuel
+            distance_to_drive = int(
+                input("How many km do you wish to drive? "))
+            while distance_to_drive < 0:
+                print("Distance must be >= 0")
+                distance_to_drive = int(input("How many km do you wish to drive? "))
+            distance_driven = car.drive(distance_to_drive)
+            print("The car drove {}km".format(distance_driven), end="")
+            if car.fuel == 0:
+                print(" and ran out of fuel", end="")
+            print(".")
+        elif menu_choice == "R":
+            # Enter the amount of fuel units to add to your vehicle
+            fuel_to_add = int(input("How many units of fuel do you want to add to the car? "))
+            while fuel_to_add < 0:
+                print("Fuel amount must be >= 0")
+                fuel_to_add = int(input("How many units of fuel do you want to add to the car? "))
+            car.add_fuel(fuel_to_add)
+            print("Added {} units of fuel.".format(fuel_to_add))
+        else:
+            print("Invalid choice")
+        print()
+        print(car)
+        print(MENU)
+        menu_choice = input("Enter your choice: ").upper()
+    print("\nGood bye {}'s driver.".format(car.name))
+
+
+main()
+
