@@ -34,7 +34,11 @@ def get_fixed_filename(filename):
     special_characters = ["'", ".", "_", "(", ")"]
     alt_name = ""
     for i in enumerate(main_name):
-        if not i[0] == 0 and letter_to_check == letter_to_check.lower() and not i[1] == i[1].lower() and not letter_to_check in special_characters:
+        if not i[0] == 0 and letter_to_check == letter_to_check.lower() and not i[1] == i[
+                1].lower() and letter_to_check not in special_characters:
+
+            alt_name += "_" + i[1]
+        elif i[1] == "(" and letter_to_check != "_":
             alt_name += "_" + i[1]
         else:
             alt_name += i[1]
